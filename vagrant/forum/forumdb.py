@@ -35,11 +35,10 @@ def AddPost(content):
     Args:
       content: The text content of the new post.
     '''
-    t = time.strftime('%c', time.localtime())
     # Database connection and insert
     DB = psycopg2.connect("dbname=forum")
     cursor = DB.cursor()
-    cursor.execute("INSERT INTO posts (content,time) VALUES ('%s','%s')"
-        %(content,t))
+    cursor.execute("INSERT INTO posts (content) VALUES (%s)",
+        (content,))
     DB.commit()
     DB.close()
